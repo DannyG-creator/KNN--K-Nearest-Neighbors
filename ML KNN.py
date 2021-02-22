@@ -8,6 +8,7 @@ from sklearn import linear_model, preprocessing
 data = pd.read_csv("car.data")
 print(data.head())
 
+# Formatting variable data to be numbers
 le = preprocessing.LabelEncoder()
 buying = le.fit_transform(list(data["buying"]))
 maint = le.fit_transform(list(data["maint"]))
@@ -22,6 +23,7 @@ predict = "class"
 x = list(zip(buying, maint, doors, persons, lug_boot, safety))
 y = list(cls)
 
+# Trains model
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
 
 model = KNeighborsClassifier(n_neighbors=3)
@@ -33,6 +35,7 @@ print(acc)
 predicted = model.predict(x_test)
 names = ["unacc", "acc", "good", "vgood"]
 
+# Shows comparison of the Predicted Data, the Variables Data, and the Actual data
 for x in range(len(x_test)):
     print("Predicted: ", names[predicted[x]], "Data: ", x_test[x], "Actual: ", names[y_test[x]])
     n = model.kneighbors([x_test[x]], 9, True)
